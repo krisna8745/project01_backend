@@ -70,6 +70,13 @@ port = 4000
 //     credentials: true, // Allow credentials like cookies to be sent
 //   })
 // );
+app.use(
+  cors({
+    origin: ["https://yox9.com", "https://admin.yox9.com","https://subadmin.yox9.com","https://master.yox9.com","https://superagent.yox9.com","https://agent.yox9.com"], // Replace '*' with the specific origin(s) you want to allow, e.g., 'https://yourdomain.com'
+    methods: ['POST', 'GET', 'PUT', 'DELETE'], // Define allowed HTTP methods
+    credentials: true, // Allow credentials like cookies to be sent
+  })
+);
 app.use(cors());
 
 const MONGO_URI = process.env.mongodb_url;

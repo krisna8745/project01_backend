@@ -77,7 +77,7 @@ app.use(
     credentials: true, // Allow credentials like cookies to be sent
   })
 );
-app.use(cors());
+
 
 const MONGO_URI = process.env.mongodb_url;
 // mongodb+srv://siddharthojha421:yPlKyyZpefa9Y5lJ@cluster0.rtjwl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0

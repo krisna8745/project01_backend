@@ -234,7 +234,7 @@ console.log(req.body);
     let AgentNo;
     let agentCount = 5000;
     do {
-      AgentNo = `A${agentCount}`;
+      AgentNo = `${agentCount}`;
       agentCount++;
     } while (await AgentPageModel.findOne({ AgentNo }));
 
@@ -308,7 +308,7 @@ const agentcreate = async (req, res) => {
     let AgentNo;
     let agentCount = 5000;
     do {
-      AgentNo = `A${agentCount}`;
+      AgentNo = `${agentCount}`;
       agentCount++;
     } while (await AgentPageModel.findOne({ AgentNo }));
 
@@ -606,17 +606,22 @@ const paymentpageadmin = async (req, res) => {
 
 const agentLogin = async (req, res) => {
   try {
-    const { AgentNo, password } = req.body;
+    const { AgentNo, password,role } = req.body;
 
-    if (!AgentNo || !password) {
+    if (!AgentNo || !password || !role) {
       return res.status(400).json({ message: "AgentNo and password are required" });
     }
 
     // Find agent by AgentNo
-    const agent = await AgentPageModel.findOne({ AgentNo });
+    const agent = await AgentPageModel.findOne({ AgentNo,role });
     if (!agent) {
       return res.status(401).json({ message: "Invalid AgentNo or password" });
     }
+
+    if (agent.role !== role) {
+      return res.status(401).json({message:"Invalid"});
+    }
+       
 
     // Compare password
     const isMatch = await bcrypt.compare(password, agent.password);
